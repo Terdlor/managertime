@@ -2,10 +2,8 @@ package com.terdev.managertime.daynow
 
 import com.terdev.managertime.common.CallbackHandler
 import com.terdev.managertime.common.HandlerName
-import com.terdev.managertime.createMessage
-import com.terdev.managertime.getInlineKeyboard
+import com.terdev.managertime.common.createMessage
 import org.springframework.stereotype.Component
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.bots.AbsSender
@@ -48,10 +46,11 @@ class DayNowHandler : CallbackHandler {
                 emptyList()
             )
         )
-        when(arguments.first()) {
+        when (arguments.first()) {
             ANSWER_TARGET.IN.text -> {
                 absSender.execute(createMessage(chatId, "Добавлен приход"))
             }
+
             ANSWER_TARGET.OUT.text -> {
                 absSender.execute(createMessage(chatId, "Добавлен уход"))
             }

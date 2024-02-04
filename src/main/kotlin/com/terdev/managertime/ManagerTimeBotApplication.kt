@@ -1,6 +1,7 @@
 package com.terdev.managertime
 
 import com.terdev.managertime.common.CallbackHandler
+import com.terdev.managertime.common.createMessage
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.core.env.Environment
@@ -8,13 +9,7 @@ import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Update
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow
 
 @SpringBootApplication
 class ManagerTimeBotApplication
@@ -30,7 +25,7 @@ class ManagerTimeBot(
     env: Environment
 ) : TelegramLongPollingCommandBot(env.getProperty("telegram.token")) {
 
-    private val botName by lazy { env.getProperty("telegram.botName") ?: "не указано telegram.botName"  }
+    private val botName by lazy { env.getProperty("telegram.botName") ?: "не указано telegram.botName" }
 
     override fun getBotUsername(): String = botName
 
@@ -68,42 +63,3 @@ class ManagerTimeBot(
         }
     }
 }
-
-fun createMessage(chatId: String, text: String) =
-    SendMessage(chatId, text)
-        .apply { enableMarkdown(true) }
-        .apply { disableWebPagePreview() }
-
-fun createMessageWithSimpleButtons(chatId: String, text: String, simpleButtons: List<List<String>>) =
-    createMessage(chatId, text)
-        .apply {
-            replyMarkup = getSimpleKeyboard(simpleButtons)
-        }
-
-fun getSimpleKeyboard(allButtons: List<List<String>>): ReplyKeyboard =
-    ReplyKeyboardMarkup().apply {
-        keyboard = allButtons.map { rowButtons ->
-            val row = KeyboardRow()
-            rowButtons.forEach { rowButton -> row.add(rowButton) }
-            row
-        }
-        oneTimeKeyboard = true
-    }
-
-fun createMessageWithInlineButtons(chatId: String, text: String, inlineButtons: List<List<Pair<String, String>>>) =
-    createMessage(chatId, text)
-        .apply {
-            replyMarkup = getInlineKeyboard(inlineButtons)
-        }
-
-fun getInlineKeyboard(allButtons: List<List<Pair<String, String>>>): InlineKeyboardMarkup =
-    InlineKeyboardMarkup().apply {
-        keyboard = allButtons.map { rowButtons ->
-            rowButtons.map { (data, buttonText) ->
-                InlineKeyboardButton().apply {
-                    text = buttonText
-                    callbackData = data
-                }
-            }
-        }
-    }

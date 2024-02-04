@@ -2,8 +2,8 @@ package com.terdev.managertime.example.inline
 
 import com.terdev.managertime.common.CallbackHandler
 import com.terdev.managertime.common.HandlerName
-import com.terdev.managertime.createMessage
-import com.terdev.managertime.getInlineKeyboard
+import com.terdev.managertime.common.createMessage
+import com.terdev.managertime.common.getInlineKeyboard
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery

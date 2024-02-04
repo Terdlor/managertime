@@ -1,8 +1,8 @@
 package com.terdev.managertime.daynow
 
 import com.terdev.managertime.common.CommandName
-import com.terdev.managertime.createMessageWithInlineButtons
 import com.terdev.managertime.common.HandlerName
+import com.terdev.managertime.common.createMessageWithInlineButtons
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand
 import org.telegram.telegrambots.meta.api.objects.Chat
@@ -19,7 +19,10 @@ class DayNowCommand : BotCommand(CommandName.DAY_NOW.text, "") {
                 chat.id.toString(),
                 "Текущий день",//TODO инфа текущего дня
                 listOf(
-                    listOf("$callback|${ANSWER_TARGET.IN.text}" to "Приход", "$callback|${ANSWER_TARGET.OUT.text}" to "Уход"),
+                    listOf(
+                        "$callback|${ANSWER_TARGET.IN.text}" to "Приход",
+                        "$callback|${ANSWER_TARGET.OUT.text}" to "Уход"
+                    ),
                 )
             )
         )
