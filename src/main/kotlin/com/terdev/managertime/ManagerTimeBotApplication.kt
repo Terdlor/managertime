@@ -1,6 +1,6 @@
 package com.terdev.managertime
 
-import com.terdev.managertime.inline.CallbackHandler
+import com.terdev.managertime.common.CallbackHandler
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.core.env.Environment

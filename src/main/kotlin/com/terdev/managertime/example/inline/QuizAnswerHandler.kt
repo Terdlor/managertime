@@ -1,5 +1,7 @@
-package com.terdev.managertime.inline
+package com.terdev.managertime.example.inline
 
+import com.terdev.managertime.common.CallbackHandler
+import com.terdev.managertime.common.HandlerName
 import com.terdev.managertime.createMessage
 import com.terdev.managertime.getInlineKeyboard
 import org.springframework.stereotype.Component

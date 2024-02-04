@@ -1,4 +1,4 @@
-package com.terdev.managertime.inline
+package com.terdev.managertime.common
 
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.bots.AbsSender

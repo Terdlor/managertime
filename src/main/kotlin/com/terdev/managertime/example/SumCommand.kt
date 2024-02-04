@@ -1,5 +1,7 @@
-package com.terdev.managertime
+package com.terdev.managertime.example
 
+import com.terdev.managertime.common.CommandName
+import com.terdev.managertime.createMessage
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand
 import org.telegram.telegrambots.meta.api.objects.Chat

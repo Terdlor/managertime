@@ -1,5 +1,7 @@
-package com.terdev.managertime
+package com.terdev.managertime.help
 
+import com.terdev.managertime.common.CommandName
+import com.terdev.managertime.createMessage
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand
 import org.telegram.telegrambots.meta.api.objects.Chat
@@ -19,6 +21,9 @@ class HelpCommand : BotCommand(CommandName.HELP.text, "") {
         for (com in CommandName.values()) {
             str.append("\n/${com.text} - ${com.description}")
         }
-        return str.toString()
+        return str.toString().replace("_", "\\_")
+            .replace("*", "\\*")
+            .replace("[", "\\[")
+            .replace("`", "\\`")
     }
 }
