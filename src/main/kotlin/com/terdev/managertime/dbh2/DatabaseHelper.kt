@@ -4,7 +4,7 @@ import com.j256.ormlite.jdbc.JdbcPooledConnectionSource
 import com.j256.ormlite.support.ConnectionSource
 import com.j256.ormlite.table.TableUtils
 import com.terdev.managertime.dbh2.system.impl.DbInfoDaoImpl
-import com.terdev.managertime.dbh2.system.model.DbInfo
+import com.terdev.managertime.dbh2.system.entity.DbInfo
 import org.springframework.beans.factory.annotation.Value
 
 class DatabaseHelper private constructor() {

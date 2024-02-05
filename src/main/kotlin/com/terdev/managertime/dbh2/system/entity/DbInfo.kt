@@ -1,4 +1,4 @@
-package com.terdev.managertime.dbh2.system.model
+package com.terdev.managertime.dbh2.system.entity
 
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable

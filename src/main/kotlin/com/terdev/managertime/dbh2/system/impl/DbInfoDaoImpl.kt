@@ -3,7 +3,7 @@ package com.terdev.managertime.dbh2.system.impl
 import com.j256.ormlite.dao.BaseDaoImpl
 import com.j256.ormlite.support.ConnectionSource
 import com.terdev.managertime.dbh2.system.DbInfoDao
-import com.terdev.managertime.dbh2.system.model.DbInfo
+import com.terdev.managertime.dbh2.system.entity.DbInfo
 import java.sql.SQLException
 import java.util.*
 
