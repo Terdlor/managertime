@@ -34,7 +34,7 @@ class DayNowHandler : CallbackHandler {
         val chatId = callbackQuery.message.chatId.toString()
 
         if (AnswerTarget.UPDATE.text != arguments.first())
-            if (LocalDateTime.now().toLocalDate().isEqual(localDate)){
+            if (LocalDateTime.now().toLocalDate().isEqual(localDate)) {
                 actionService.saveAction(
                     callbackQuery.from.id,
                     localDate.dayOfMonth,
@@ -58,21 +58,18 @@ class DayNowHandler : CallbackHandler {
         )
 
         try {
-            val newString = createStringInfoAction(actions, localDate)
-            if (newString.equals(callbackQuery.message.text)) {
-                absSender.execute(
-                    EditMessageText(
-                        chatId,
-                        callbackQuery.message.messageId,
-                        callbackQuery.inlineMessageId,
-                        newString,
-                        "Markdown",
-                        false,
-                        callbackQuery.message.replyMarkup,
-                        emptyList()
-                    )
+            absSender.execute(
+                EditMessageText(
+                    chatId,
+                    callbackQuery.message.messageId,
+                    callbackQuery.inlineMessageId,
+                    createStringInfoAction(actions, localDate),
+                    "Markdown",
+                    false,
+                    callbackQuery.message.replyMarkup,
+                    emptyList()
                 )
-            }
+            )
         } finally {
             absSender.execute(AnswerCallbackQuery(callbackQuery.id))
         }
