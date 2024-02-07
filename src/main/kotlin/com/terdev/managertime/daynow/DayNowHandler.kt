@@ -5,8 +5,6 @@ import com.terdev.managertime.common.HandlerName
 import com.terdev.managertime.jpa.tm.service.ActionService
 import com.terdev.managertime.model.utils.createStringInfoAction
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText
@@ -29,16 +27,17 @@ class DayNowHandler : CallbackHandler {
         val localDate = LocalDateTime.now()
 
         val chatId = callbackQuery.message.chatId.toString()
-        val date = Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant())
+        val date = LocalDateTime.now()
 
-        actionService.saveAction(
-            callbackQuery.from.id,
-            localDate.dayOfMonth,
-            localDate.monthValue,
-            localDate.year,
-            date,
-            arguments.first()
-        )
+        if (AnswerTarget.UPDATE.text != arguments.first())
+            actionService.saveAction(
+                callbackQuery.from.id,
+                localDate.dayOfMonth,
+                localDate.monthValue,
+                localDate.year,
+                date,
+                arguments.first()
+            )
 
         val actions = actionService.getActionByDay(
             callbackQuery.from.id,

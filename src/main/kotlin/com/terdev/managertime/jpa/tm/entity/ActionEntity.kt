@@ -1,6 +1,6 @@
 package com.terdev.managertime.jpa.tm.entity
 
-import java.util.*
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -35,6 +35,6 @@ class ActionEntity {
     var type: String = ""
 
     @Column(name = DATE, nullable = false)
-    var date: Date = Date()
+    var date: LocalDateTime = LocalDateTime.now()
 
 }

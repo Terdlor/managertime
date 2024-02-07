@@ -6,7 +6,7 @@ import com.terdev.managertime.jpa.tm.repository.ActionRepository
 import com.terdev.managertime.jpa.tm.repository.DayRepository
 import com.terdev.managertime.model.Action
 import com.terdev.managertime.model.Day
-import java.util.*
+import java.time.LocalDateTime
 import java.util.stream.Collectors
 import org.mapstruct.Mapper
 import org.mapstruct.factory.Mappers
@@ -33,9 +33,10 @@ class ActionService {
             .collect(Collectors.toList())
     }
 
-    fun saveAction(userId: Long, day: Int, month: Int, year: Int, date: Date, type: String) {
-        val dayEntity = dayRepository.findByUserIdAndDayAndMonthAndYear(userId, day, month, year) ?:
-        dayRepository.save(DayMapper.INSTANCE.toEntity(Day(userId, day, month, year, 0)))
+    fun saveAction(userId: Long, day: Int, month: Int, year: Int, date: LocalDateTime, type: String) {
+        val dayEntity = dayRepository.findByUserIdAndDayAndMonthAndYear(userId, day, month, year) ?: dayRepository.save(
+            DayMapper.INSTANCE.toEntity(Day(userId, day, month, year, 0))
+        )
         actionRepository.save(ActionMapper.INSTANCE.toEntity(Action(dayEntity.id, type, date)))
     }
 }

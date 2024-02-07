@@ -30,9 +30,10 @@ class DayNowCommand : BotCommand(CommandName.DAY_NOW.text, "") {
                 chat.id.toString(),
                 createStringInfoAction(actions),
                 listOf(
+                    listOf("$callback|${AnswerTarget.UPDATE.text}" to AnswerTarget.UPDATE.desc),
                     listOf(
-                        "$callback|${ANSWER_TARGET.IN.text}" to ANSWER_TARGET.IN.desc,
-                        "$callback|${ANSWER_TARGET.OUT.text}" to ANSWER_TARGET.OUT.desc
+                        "$callback|${AnswerTarget.IN.text}" to AnswerTarget.IN.desc,
+                        "$callback|${AnswerTarget.OUT.text}" to AnswerTarget.OUT.desc
                     ),
                 )
             )

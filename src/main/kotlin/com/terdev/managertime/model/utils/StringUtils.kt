@@ -1,7 +1,9 @@
 package com.terdev.managertime.model.utils
 
-import com.terdev.managertime.daynow.ANSWER_TARGET
+import com.terdev.managertime.daynow.AnswerTarget
 import com.terdev.managertime.model.Action
+import java.time.Duration
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import org.springframework.util.CollectionUtils
 
@@ -12,18 +14,30 @@ fun createStringInfoAction(actions: List<Action>): String {
         str.append("\nДанных нет")
     }
 
-    for (action in actions) {
-        when(action.type){
-            ANSWER_TARGET.IN.text -> str.append("\n${ANSWER_TARGET.IN.desc} - ${action.date}")
-            ANSWER_TARGET.OUT.text -> str.append("\n${ANSWER_TARGET.OUT.desc} - ${action.date}")
+    normalizationActions(actions)
+    val total = completeTime(actions)
+
+    val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+
+    for (action in actions.sortedBy { it.date }) {
+        when (action.type) {
+            AnswerTarget.IN.text -> str.append("\n${AnswerTarget.IN.desc} - ${action.date.format(formatter)} ${action.emoj}")
+            AnswerTarget.OUT.text -> str.append("\n${AnswerTarget.OUT.desc} - ${action.date.format(formatter)} ${action.emoj}")
         }
     }
+
+    str.append("\n\nИтого ")
+    val duration = Duration.of(total, ChronoUnit.SECONDS)
+    if (duration.toHours() > 0) {
+        str.append("${duration.toHours()} часов ")
+    }
+    if (duration.toMinutes() > 0) {
+        str.append("${duration.toMinutes() - duration.toHours() * 60} минут ")
+    }
+    str.append("${duration.toSeconds() - duration.toMinutes() * 60} секунд")
+
     return str.toString().replace("_", "\\_")
         .replace("*", "\\*")
         .replace("[", "\\[")
         .replace("`", "\\`")
-}
-
-fun calculatePeriod(actions: List<Action>) {
-    val sortedAction = actions.sortedBy { it.date }
 }
