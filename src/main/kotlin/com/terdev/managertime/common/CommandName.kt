@@ -6,5 +6,6 @@ enum class CommandName(val text: String, val description: String) {
     BUTTONS("buttons", "Отображение кнопок"),
     QUIZ("quiz", "Пример опросника"),
     HELP("help", "Список команд"),
-    DAY_NOW("day_now", "Текущий день")
+    DAY_NOW("day_now", "Текущий день"),
+    EDIT_NOW("edit_now", "Редактирование")
 }

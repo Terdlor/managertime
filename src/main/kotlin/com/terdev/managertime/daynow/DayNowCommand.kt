@@ -28,7 +28,7 @@ class DayNowCommand : BotCommand(CommandName.DAY_NOW.text, "") {
         absSender.execute(
             createMessageWithInlineButtons(
                 chat.id.toString(),
-                createStringInfoAction(actions),
+                createStringInfoAction(actions, localDate),
                 listOf(
                     listOf("$callback|${AnswerTarget.UPDATE.text}" to AnswerTarget.UPDATE.desc),
                     listOf(

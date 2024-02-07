@@ -48,9 +48,6 @@ class ManagerTimeBot(
             val callbackQuery = update.callbackQuery
             val callbackData = callbackQuery.data
 
-            val callbackQueryId = callbackQuery.id
-            execute(AnswerCallbackQuery(callbackQueryId))
-
             val callbackArguments = callbackData.split("|")
             val callbackHandlerName = callbackArguments.first()
 

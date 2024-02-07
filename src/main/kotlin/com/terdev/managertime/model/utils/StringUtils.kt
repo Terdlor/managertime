@@ -1,21 +1,23 @@
 package com.terdev.managertime.model.utils
 
+import com.terdev.managertime.common.CommandName
 import com.terdev.managertime.daynow.AnswerTarget
 import com.terdev.managertime.model.Action
 import java.time.Duration
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import org.springframework.util.CollectionUtils
 
-fun createStringInfoAction(actions: List<Action>): String {
+fun createStringInfoAction(actions: List<Action>, time: LocalDate): String {
     val str = StringBuilder()
-    str.append("Статистика за сегодня:\n")
+    str.append("Статистика за $time:\n")
     if (CollectionUtils.isEmpty(actions)) {
         str.append("\nДанных нет")
     }
 
     normalizationActions(actions)
-    val total = completeTime(actions)
+    val total = completeTime(actions, time)
 
     val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
@@ -25,6 +27,7 @@ fun createStringInfoAction(actions: List<Action>): String {
             AnswerTarget.OUT.text -> str.append("\n${AnswerTarget.OUT.desc} - ${action.date.format(formatter)} ${action.emoj}")
         }
     }
+    str.append("\n\nРедактировать /${CommandName.EDIT_NOW.text}")
 
     str.append("\n\nИтого ")
     val duration = Duration.of(total, ChronoUnit.SECONDS)

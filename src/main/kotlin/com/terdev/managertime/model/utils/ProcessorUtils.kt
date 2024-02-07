@@ -3,8 +3,8 @@ package com.terdev.managertime.model.utils
 import com.terdev.managertime.daynow.AnswerTarget
 import com.terdev.managertime.model.Action
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import org.springframework.util.CollectionUtils
 
 fun normalizationActions(actions: List<Action>) {
@@ -27,11 +27,11 @@ fun normalizationActions(actions: List<Action>) {
     }
 }
 
-fun completeTime(actions: List<Action>): Long {
+fun completeTime(actions: List<Action>, time: LocalDate): Long {
     if (CollectionUtils.isEmpty(actions)) {
         return 0
     }
-    val startDayTime = LocalDateTime.now().with(LocalTime.MIN)
+    val startDayTime = time.atStartOfDay()
 
     var duration = 0L
     var lastAction = actions[0]
@@ -48,7 +48,12 @@ fun completeTime(actions: List<Action>): Long {
         }
     }
     if (lastAction.type == AnswerTarget.IN.text) {
-        duration += Duration.between(startDayTime, LocalDateTime.now()).toSeconds()
+        val endDayTime = if (LocalDateTime.now().toLocalDate().isEqual(time)) {
+            LocalDateTime.now()
+        } else {
+            startDayTime.plusDays(1)
+        }
+        duration += Duration.between(startDayTime, endDayTime).toSeconds()
     }
 
     return duration
