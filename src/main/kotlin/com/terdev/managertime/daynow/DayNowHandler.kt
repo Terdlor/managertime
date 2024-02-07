@@ -58,18 +58,21 @@ class DayNowHandler : CallbackHandler {
         )
 
         try {
-            absSender.execute(
-                EditMessageText(
-                    chatId,
-                    callbackQuery.message.messageId,
-                    callbackQuery.inlineMessageId,
-                    createStringInfoAction(actions, localDate),
-                    "Markdown",
-                    false,
-                    callbackQuery.message.replyMarkup,
-                    emptyList()
+            val newString = createStringInfoAction(actions, localDate)
+            if (newString.equals(callbackQuery.message.text)) {
+                absSender.execute(
+                    EditMessageText(
+                        chatId,
+                        callbackQuery.message.messageId,
+                        callbackQuery.inlineMessageId,
+                        newString,
+                        "Markdown",
+                        false,
+                        callbackQuery.message.replyMarkup,
+                        emptyList()
+                    )
                 )
-            )
+            }
         } finally {
             absSender.execute(AnswerCallbackQuery(callbackQuery.id))
         }
