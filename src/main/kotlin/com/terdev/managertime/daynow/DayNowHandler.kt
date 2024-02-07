@@ -57,18 +57,21 @@ class DayNowHandler : CallbackHandler {
             localDate.year
         )
 
-        absSender.execute(
-            EditMessageText(
-                chatId,
-                callbackQuery.message.messageId,
-                callbackQuery.inlineMessageId,
-                createStringInfoAction(actions, localDate),
-                "Markdown",
-                false,
-                callbackQuery.message.replyMarkup,
-                emptyList()
+        try {
+            absSender.execute(
+                EditMessageText(
+                    chatId,
+                    callbackQuery.message.messageId,
+                    callbackQuery.inlineMessageId,
+                    createStringInfoAction(actions, localDate),
+                    "Markdown",
+                    false,
+                    callbackQuery.message.replyMarkup,
+                    emptyList()
+                )
             )
-        )
-        absSender.execute(AnswerCallbackQuery(callbackQuery.id))
+        } finally {
+            absSender.execute(AnswerCallbackQuery(callbackQuery.id))
+        }
     }
 }
